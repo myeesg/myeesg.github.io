@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kuiz interaktif tentang kelestarian dalam operasi perniagaan.">
+  <title>Kuiz Kelestarian Operasi Perniagaan</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --green: #176b4d;
+      --green-dark: #104c38;
+      --green-light: #e8f4ee;
+      --ink: #1d2b24;
+      --muted: #64736a;
+      --line: #dce5df;
+      --surface: #ffffff;
+      --background: #f4f8f5;
+      --correct: #e7f6ec;
+      --incorrect: #fff0ed;
+      --shadow: 0 12px 32px rgb(20 55 38 / 8%);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    .page {
+      width: min(900px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 48px 0;
+    }
+
+    header {
+      margin-bottom: 24px;
+      padding: 32px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--green-dark), var(--green));
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      opacity: .85;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.7rem, 5vw, 2.5rem);
+      line-height: 1.2;
+    }
+
+    header p:last-child {
+      max-width: 650px;
+      margin-bottom: 0;
+      opacity: .92;
+    }
+
+    .quiz-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .pill {
+      padding: 6px 12px;
+      border: 1px solid rgb(255 255 255 / 35%);
+      border-radius: 999px;
+      font-size: .9rem;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 20px 2px 8px;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .progress-track {
+      height: 9px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: #e1e9e3;
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--green);
+      transition: width .25s ease;
+    }
+
+    form {
+      display: grid;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .question-card {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface);
+      box-shadow: 0 4px 14px rgb(20 55 38 / 4%);
+    }
+
+    .question-card.correct { border-color: #83c99a; }
+    .question-card.incorrect { border-color: #e8a398; }
+
+    fieldset.question-card {
+      min-width: 0;
+      margin: 0;
+    }
+
+    /* legend lalai "duduk" atas garisan sempadan fieldset — paksa ia jadi blok biasa dalam kad */
+    .question-title {
+      float: left;
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin: 0 0 14px;
+      padding: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .question-title + .options { clear: both; }
+
+    .question-number {
+      display: inline-grid;
+      margin-top: 1px;
+      width: 30px;
+      height: 30px;
+      flex: 0 0 30px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--green-light);
+      color: var(--green-dark);
+      font-size: .88rem;
+    }
+
+    .options {
+      display: grid;
+      gap: 9px;
+    }
+
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: border-color .15s ease, background .15s ease;
+    }
+
+    .option:hover {
+      border-color: #91b9a2;
+      background: #f7fbf8;
+    }
+
+    .option:has(input:checked) {
+      border-color: var(--green);
+      background: var(--green-light);
+    }
+
+    .option input {
+      margin: 5px 0 0;
+      accent-color: var(--green);
+    }
+
+    .feedback {
+      margin: 14px 0 0;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: .94rem;
+    }
+
+    .feedback.good { background: var(--correct); }
+    .feedback.bad { background: var(--incorrect); }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 8px 0 20px;
+    }
+
+    button {
+      min-height: 46px;
+      padding: 11px 18px;
+      border: 0;
+      border-radius: 10px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:focus-visible, input:focus-visible {
+      outline: 3px solid #f1b94c;
+      outline-offset: 3px;
+    }
+
+    .primary {
+      background: var(--green);
+      color: white;
+    }
+
+    .primary:hover { background: var(--green-dark); }
+
+    .secondary {
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--ink);
+    }
+
+    .secondary:hover { background: #f0f4f1; }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: .65;
+    }
+
+    #result {
+      margin: 0 0 18px;
+      padding: 22px;
+      border: 1px solid #b7d8c2;
+      border-radius: 14px;
+      background: var(--green-light);
+    }
+
+    #result h2 { margin: 0 0 6px; }
+
+    .hidden { display: none !important; }
+
+    footer {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: .9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .page { padding: 24px 0; }
+      header { padding: 24px; }
+      .question-card { padding: 18px; }
+      .actions button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <p class="eyebrow">Aktiviti pembelajaran interaktif</p>
+      <h1>Kuiz Kelestarian Operasi Perniagaan</h1>
+      <p>
+        Uji pemahaman anda tentang EESG, proses amalan kelestarian,
+        KPI, pelaporan dan strategi pelaksanaan.
+      </p>
+      <div class="quiz-info" aria-label="Maklumat kuiz">
+        <span class="pill">10 soalan</span>
+        <span class="pill">Anggaran masa: 5–8 minit</span>
+        <span class="pill">Pilih satu jawapan bagi setiap soalan</span>
+      </div>
+    </header>
+
+    <section aria-label="Kemajuan kuiz">
+      <div class="status-row">
+        <span id="answered-count">0 daripada 10 dijawab</span>
+        <span id="progress-percent">0%</span>
+      </div>
+      <div
+        class="progress-track"
+        role="progressbar"
+        aria-label="Kemajuan menjawab soalan"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+        id="progress-track"
+      >
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+    </section>
+
+    <div id="result" class="hidden" role="status" aria-live="polite"></div>
+
+    <form id="quiz-form">
+      <div id="questions"></div>
+
+      <div class="actions">
+        <button class="primary" type="submit" id="submit-button">
+          Semak Jawapan
+        </button>
+        <button class="secondary hidden" type="button" id="reset-button">
+          Cuba Semula
+        </button>
+      </div>
+    </form>
+
+    <footer>
+      Kuiz latihan: Kelestarian dalam Konteks Operasi Perniagaan
+    </footer>
+  </main>
+
+  <script>
+    const questions = [
+      {
+        question: "Apakah maksud kelestarian dalam operasi perniagaan?",
+        options: [
+          "Mengutamakan keuntungan jangka pendek sahaja",
+          "Mengurus perniagaan dengan mengambil kira kesan ekonomi, alam sekitar, sosial dan tadbir urus",
+          "Menggantikan semua pekerja dengan teknologi",
+          "Mengurangkan pengeluaran tanpa menilai kesan kepada perniagaan"
+        ],
+        answer: 1,
+        explanation: "Kelestarian mengimbangi prestasi perniagaan dengan tanggungjawab terhadap alam sekitar, manusia dan tadbir urus."
+      },
+      {
+        question: "Dalam kerangka EESG, huruf “E” yang pertama merujuk kepada:",
+        options: [
+          "Kecekapan",
+          "Ekonomi",
+          "Pendidikan",
+          "Eksport"
+        ],
+        answer: 1,
+        explanation: "Dalam konteks latihan ini, EESG merangkumi Ekonomi, Alam Sekitar, Sosial dan Tadbir Urus."
+      },
+      {
+        question: "Antara berikut, yang manakah contoh dimensi sosial dalam operasi perniagaan?",
+        options: [
+          "Memantau penggunaan elektrik",
+          "Meningkatkan keselamatan dan kebajikan pekerja",
+          "Menyemak ketepatan rekod kewangan",
+          "Mengira kos bahan mentah"
+        ],
+        answer: 1,
+        explanation: "Keselamatan, kebajikan, latihan dan layanan adil kepada pekerja ialah perkara berkaitan dimensi sosial."
+      },
+      {
+        question: "Apakah hubungan yang paling tepat antara 3P dan EESG?",
+        options: [
+          "Kedua-duanya hanya mengukur keuntungan",
+          "3P ialah kerangka yang lebih lama dan tidak berkaitan dengan EESG",
+          "Kedua-duanya membantu organisasi melihat prestasi dan impak perniagaan daripada beberapa sudut",
+          "EESG hanya digunakan oleh organisasi bukan untung"
+        ],
+        answer: 2,
+        explanation: "3P (People, Planet, Profit) dan EESG membantu meluaskan pertimbangan melebihi prestasi kewangan semata-mata."
+      },
+      {
+        question: "Apakah langkah yang wajar dibuat sebelum menetapkan sasaran kelestarian?",
+        options: [
+          "Kenal pasti isu, kesan dan keadaan semasa operasi",
+          "Terbitkan laporan tanpa mengumpul data",
+          "Pilih sasaran secara rawak",
+          "Hentikan semua aktiviti operasi"
+        ],
+        answer: 0,
+        explanation: "Memahami keadaan semasa membantu organisasi memilih isu dan sasaran yang relevan serta boleh diukur."
+      },
+      {
+        question: "Yang manakah contoh KPI yang boleh digunakan untuk memantau pembaziran makanan?",
+        options: [
+          "Bilangan poster di premis",
+          "Berat sisa makanan yang direkodkan setiap minggu",
+          "Warna tong sampah",
+          "Jumlah mesyuarat yang diadakan"
+        ],
+        answer: 1,
+        explanation: "KPI yang berguna mempunyai ukuran yang jelas dan boleh direkodkan secara konsisten."
+      },
+      {
+        question: "Mengapakah rekod dan bukti penting dalam pelaporan kelestarian?",
+        options: [
+          "Supaya semua tuntutan boleh disokong, disemak dan dijejak",
+          "Supaya organisasi tidak perlu menilai kemajuan",
+          "Untuk menggantikan tindakan sebenar",
+          "Untuk memastikan semua organisasi melaporkan perkara yang sama"
+        ],
+        answer: 0,
+        explanation: "Rekod yang tepat dan boleh dijejak meningkatkan kebolehpercayaan pelaporan serta membantu penilaian kemajuan."
+      },
+      {
+        question: "Sebuah perniagaan mempunyai bajet terhad untuk memulakan inisiatif kelestarian. Apakah pendekatan yang paling sesuai?",
+        options: [
+          "Tangguhkan semua tindakan sehingga bajet menjadi besar",
+          "Pilih tindakan praktikal, utamakan isu penting dan pantau hasilnya",
+          "Laksanakan semua idea pada masa yang sama",
+          "Pilih tindakan yang paling mahal kerana pasti paling berkesan"
+        ],
+        answer: 1,
+        explanation: "Organisasi boleh bermula dengan tindakan yang sesuai dengan keutamaan dan sumber, kemudian menambah baik berdasarkan hasil."
+      },
+      {
+        question: "Apakah contoh cabaran pelaksanaan amalan kelestarian?",
+        options: [
+          "Data tidak lengkap dan kurang pengetahuan",
+          "Sasaran yang boleh diukur",
+          "Rekod yang konsisten",
+          "Tanggungjawab yang jelas"
+        ],
+        answer: 0,
+        explanation: "Kekurangan data, pengetahuan, sokongan atau sumber boleh menyukarkan pelaksanaan."
+      },
+      {
+        question: "Dalam perbincangan kajian kes industri, mengapa pandangan pihak berkepentingan perlu dipertimbangkan?",
+        options: [
+          "Kerana keputusan operasi boleh memberi kesan kepada pekerja, komuniti, pelanggan dan pihak lain",
+          "Supaya semua pihak mesti bersetuju dengan setiap keputusan",
+          "Kerana pandangan pihak berkepentingan menggantikan keperluan bukti",
+          "Supaya organisasi tidak perlu menetapkan tindakan"
+        ],
+        answer: 0,
+        explanation: "Mengenal pasti pihak yang terkesan membantu organisasi memahami risiko, kesan dan pilihan tindakan dengan lebih menyeluruh."
+      }
+    ];
+
+    const questionsContainer = document.getElementById("questions");
+    const form = document.getElementById("quiz-form");
+    const result = document.getElementById("result");
+    const submitButton = document.getElementById("submit-button");
+    const resetButton = document.getElementById("reset-button");
+    const answeredCount = document.getElementById("answered-count");
+    const progressPercent = document.getElementById("progress-percent");
+    const progressBar = document.getElementById("progress-bar");
+    const progressTrack = document.getElementById("progress-track");
+
+    function renderQuestions() {
+      questionsContainer.innerHTML = questions.map((item, index) => `
+        <fieldset class="question-card" id="card-${index}">
+          <legend class="question-title">
+            <span class="question-number">${index + 1}</span>
+            <span>${item.question}</span>
+          </legend>
+          <div class="options">
+            ${item.options.map((option, optionIndex) => `
+              <label class="option">
+                <input
+                  type="radio"
+                  name="question-${index}"
+                  value="${optionIndex}"
+                  aria-label="Soalan ${index + 1}: ${option}"
+                >
+                <span>${option}</span>
+              </label>
+            `).join("")}
+          </div>
+          <div class="feedback hidden" id="feedback-${index}" aria-live="polite"></div>
+        </fieldset>
+      `).join("");
+    }
+
+    function updateProgress() {
+      const answered = questions.filter((_, index) =>
+        form.querySelector(`input[name="question-${index}"]:checked`)
+      ).length;
+
+      const percentage = Math.round((answered / questions.length) * 100);
+      answeredCount.textContent = `${answered} daripada ${questions.length} dijawab`;
+      progressPercent.textContent = `${percentage}%`;
+      progressBar.style.width = `${percentage}%`;
+      progressTrack.setAttribute("aria-valuenow", percentage);
+    }
+
+    function getResultMessage(score) {
+      const percentage = (score / questions.length) * 100;
+
+      if (percentage === 100) {
+        return "Cemerlang! Anda menunjukkan pemahaman yang sangat baik tentang topik ini.";
+      }
+      if (percentage >= 70) {
+        return "Bagus! Anda memahami kebanyakan konsep utama. Semak maklum balas untuk mengukuhkan pemahaman.";
+      }
+      if (percentage >= 40) {
+        return "Usaha yang baik. Semak penerangan bagi setiap soalan dan cuba sekali lagi.";
+      }
+      return "Teruskan belajar! Gunakan penerangan jawapan sebagai panduan, kemudian cuba kuiz sekali lagi.";
+    }
+
+    form.addEventListener("change", updateProgress);
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const unanswered = questions.findIndex((_, index) =>
+        !form.querySelector(`input[name="question-${index}"]:checked`)
+      );
+
+      if (unanswered !== -1) {
+        document.getElementById(`card-${unanswered}`).scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+        document.querySelector(`#card-${unanswered} input`).focus();
+        alert(`Sila jawab semua soalan. Soalan ${unanswered + 1} belum dijawab.`);
+        return;
+      }
+
+      let score = 0;
+
+      questions.forEach((item, index) => {
+        const card = document.getElementById(`card-${index}`);
+        const feedback = document.getElementById(`feedback-${index}`);
+        const selected = Number(
+          form.querySelector(`input[name="question-${index}"]:checked`).value
+        );
+        const isCorrect = selected === item.answer;
+
+        if (isCorrect) score++;
+
+        card.classList.add(isCorrect ? "correct" : "incorrect");
+        feedback.className = `feedback ${isCorrect ? "good" : "bad"}`;
+        feedback.innerHTML = `<strong>${isCorrect ? "Betul!" : "Belum tepat."}</strong> ${item.explanation}`;
+
+        form.querySelectorAll(`input[name="question-${index}"]`).forEach((input) => {
+          input.disabled = true;
+        });
+      });
+
+      const percentage = Math.round((score / questions.length) * 100);
+      result.innerHTML = `
+        <h2>Markah anda: ${score} / ${questions.length} (${percentage}%)</h2>
+        <p>${getResultMessage(score)}</p>
+      `;
+      result.classList.remove("hidden");
+      submitButton.disabled = true;
+      resetButton.classList.remove("hidden");
+      result.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+
+    resetButton.addEventListener("click", () => {
+      form.reset();
+
+      questions.forEach((_, index) => {
+        const card = document.getElementById(`card-${index}`);
+        const feedback = document.getElementById(`feedback-${index}`);
+        card.classList.remove("correct", "incorrect");
+        feedback.className = "feedback hidden";
+        feedback.textContent = "";
+        form.querySelectorAll(`input[name="question-${index}"]`).forEach((input) => {
+          input.disabled = false;
+        });
+      });
+
+      result.classList.add("hidden");
+      result.innerHTML = "";
+      submitButton.disabled = false;
+      resetButton.classList.add("hidden");
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    renderQuestions();
+    updateProgress();
+  </script>
+</body>
+</html>

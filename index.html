@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Laman latihan interaktif tentang kelestarian dalam operasi perniagaan.">
+  <meta name="theme-color" content="#123f32">
+  <title>Kelestarian Operasi Perniagaan | Laman Latihan</title>
+
+  <style>
+    :root {
+      --forest: #123f32;
+      --green: #197451;
+      --lime: #c9ef84;
+      --cream: #f7f8f2;
+      --paper: #fff;
+      --ink: #1c2b25;
+      --muted: #65756c;
+      --line: #e2e8e2;
+      --soft-green: #edf5ee;
+      --shadow: 0 16px 42px rgb(22 53 39 / 9%);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    button, select {
+      font: inherit;
+    }
+
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline: 3px solid #e6a93c;
+      outline-offset: 3px;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      z-index: 20;
+      top: 0;
+      border-bottom: 1px solid rgb(255 255 255 / 12%);
+      background: rgb(18 63 50 / 96%);
+      color: white;
+      backdrop-filter: blur(12px);
+    }
+
+    .nav {
+      display: flex;
+      min-height: 68px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: white;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--lime);
+      color: var(--forest);
+      font-size: 1.1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 18px;
+    }
+
+    .nav-links a {
+      color: rgb(255 255 255 / 86%);
+      font-size: .92rem;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover { color: var(--lime); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 82px 0 72px;
+      background:
+        radial-gradient(ellipse at 86% 20%, rgb(201 239 132 / 17%), transparent 32%),
+        linear-gradient(135deg, #123f32, #1d6448);
+      color: white;
+    }
+
+    .hero::after {
+      position: absolute;
+      right: -100px;
+      bottom: -240px;
+      width: 500px;
+      height: 500px;
+      border: 1px solid rgb(255 255 255 / 12%);
+      border-radius: 50%;
+      content: "";
+      box-shadow: 0 0 0 50px rgb(255 255 255 / 3%), 0 0 0 100px rgb(255 255 255 / 2%);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--lime);
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(2.4rem, 7vw, 4.7rem);
+      letter-spacing: -.045em;
+      line-height: 1.05;
+    }
+
+    .hero-copy {
+      max-width: 670px;
+      margin: 22px 0 28px;
+      color: rgb(255 255 255 / 82%);
+      font-size: 1.12rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 18px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--lime);
+      color: var(--forest);
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .15s ease, background .15s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      background: #d7f6a4;
+    }
+
+    .button-outline {
+      border: 1px solid rgb(255 255 255 / 38%);
+      background: transparent;
+      color: white;
+    }
+
+    .button-outline:hover {
+      background: rgb(255 255 255 / 10%);
+    }
+
+    .hero-facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .fact {
+      padding: 7px 12px;
+      border: 1px solid rgb(255 255 255 / 22%);
+      border-radius: 99px;
+      color: rgb(255 255 255 / 90%);
+      font-size: .9rem;
+    }
+
+    main { padding-bottom: 56px; }
+
+    section { scroll-margin-top: 88px; }
+
+    .section {
+      padding: 68px 0 0;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      color: var(--forest);
+      font-size: clamp(1.7rem, 4vw, 2.45rem);
+      letter-spacing: -.03em;
+      line-height: 1.15;
+    }
+
+    .section-heading p {
+      max-width: 520px;
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    .kicker {
+      margin: 0 0 7px;
+      color: var(--green);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .outcomes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .outcome, .unit-card, .activity-card, .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .outcome { padding: 22px; }
+
+    .outcome-icon {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      margin-bottom: 13px;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--soft-green);
+      font-size: 1.2rem;
+    }
+
+    .outcome h3, .unit-card h3, .activity-card h3 {
+      margin: 0 0 8px;
+      color: var(--forest);
+      line-height: 1.3;
+    }
+
+    .outcome p, .unit-card p, .activity-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .unit-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .unit-card {
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+    }
+
+    .unit-label {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 14px;
+      padding: 5px 10px;
+      border-radius: 99px;
+      background: var(--soft-green);
+      color: var(--green);
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .unit-card h3 { font-size: 1.25rem; }
+
+    .unit-card ul {
+      display: grid;
+      gap: 8px;
+      margin: 17px 0 0;
+      padding-left: 19px;
+      color: var(--muted);
+    }
+
+    .unit-card li::marker { color: var(--green); }
+
+    .unit-card .unit-foot {
+      margin-top: auto;
+      padding-top: 20px;
+      color: var(--green);
+      font-size: .9rem;
+      font-weight: 700;
+    }
+
+    .eesg-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .eesg-item {
+      padding: 20px;
+      border-radius: 16px;
+      background: var(--forest);
+      color: white;
+    }
+
+    .eesg-letter {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--lime);
+      font-size: 2rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .eesg-item strong { display: block; }
+
+    .eesg-item p {
+      margin: 6px 0 0;
+      color: rgb(255 255 255 / 76%);
+      font-size: .9rem;
+    }
+
+    .activity-layout {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .activity-card { padding: 24px; }
+
+    .activity-card select {
+      width: 100%;
+      min-height: 46px;
+      margin: 16px 0 12px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: white;
+      color: var(--ink);
+    }
+
+    .prompt-box {
+      min-height: 120px;
+      padding: 17px;
+      border-left: 4px solid var(--green);
+      border-radius: 0 12px 12px 0;
+      background: var(--soft-green);
+      color: var(--forest);
+    }
+
+    .prompt-box strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .activity-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 13px;
+    }
+
+    .button-small {
+      min-height: 40px;
+      padding: 8px 13px;
+      border-radius: 10px;
+      font-size: .92rem;
+    }
+
+    .button-dark {
+      background: var(--forest);
+      color: white;
+    }
+
+    .button-dark:hover { background: var(--green); }
+
+    .timer-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      border-radius: var(--radius);
+      background: #eaf1e9;
+      text-align: center;
+    }
+
+    .timer-panel h3 {
+      margin: 0;
+      color: var(--forest);
+    }
+
+    .timer-display {
+      margin: 10px 0;
+      color: var(--forest);
+      font-size: clamp(3rem, 7vw, 4rem);
+      font-variant-numeric: tabular-nums;
+      font-weight: 850;
+      letter-spacing: -.05em;
+      line-height: 1.1;
+    }
+
+    .timer-status {
+      min-height: 26px;
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .quiz-wrap {
+      padding: 28px;
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .quiz-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 9px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .progress-track {
+      height: 8px;
+      overflow: hidden;
+      margin-bottom: 24px;
+      border-radius: 99px;
+      background: #e7ece7;
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--green);
+      transition: width .2s ease;
+    }
+
+    .quiz-question {
+      margin: 0 0 16px;
+      color: var(--forest);
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .quiz-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      padding: 13px 15px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    .quiz-option:hover { background: #f8faf7; }
+
+    .quiz-option:has(input:checked) {
+      border-color: var(--green);
+      background: var(--soft-green);
+    }
+
+    .quiz-option input {
+      margin: 5px 0 0;
+      accent-color: var(--green);
+    }
+
+    .quiz-feedback {
+      min-height: 28px;
+      margin: 14px 0;
+      color: var(--muted);
+    }
+
+    .quiz-feedback.good { color: #176b3e; }
+    .quiz-feedback.bad { color: #9c3d2c; }
+
+    .quiz-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .quiz-result {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 14px;
+      background: var(--soft-green);
+      color: var(--forest);
+    }
+
+    .quiz-result h3 { margin: 0 0 4px; }
+
+    .quiz-result p { margin: 0; }
+
+    .hidden { display: none !important; }
+
+    .takeaway {
+      padding: 30px;
+      border-radius: var(--radius);
+      background: var(--forest);
+      color: white;
+    }
+
+    .takeaway h2 {
+      margin: 0 0 10px;
+      color: var(--lime);
+    }
+
+    .takeaway p {
+      max-width: 780px;
+      margin: 0;
+      color: rgb(255 255 255 / 85%);
+    }
+
+    .commitment {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .commitment label {
+      display: grid;
+      gap: 6px;
+      color: white;
+      font-weight: 700;
+    }
+
+    .commitment input {
+      width: 100%;
+      min-height: 46px;
+      padding: 10px 12px;
+      border: 1px solid rgb(255 255 255 / 30%);
+      border-radius: 10px;
+      background: rgb(255 255 255 / 9%);
+      color: white;
+      font: inherit;
+    }
+
+    .commitment input::placeholder { color: rgb(255 255 255 / 62%); }
+
+    .commitment-note {
+      min-height: 26px;
+      margin-top: 12px !important;
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 28px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 820px) {
+      .nav { align-items: flex-start; padding: 13px 0; }
+      .nav-links { gap: 10px 14px; }
+      .unit-grid { grid-template-columns: 1fr; }
+      .activity-layout { grid-template-columns: 1fr; }
+      .eesg-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .container { width: min(100% - 26px, 1120px); }
+      .nav { display: block; }
+      .nav-links { justify-content: flex-start; margin-top: 10px; }
+      .hero { padding: 58px 0 52px; }
+      .section { padding-top: 50px; }
+      .section-heading { display: block; }
+      .outcomes { grid-template-columns: 1fr; }
+      .quiz-wrap { padding: 20px; }
+      .commitment { grid-template-columns: 1fr; }
+      .hero-actions .button { width: 100%; }
+    }
+
+    @media print {
+      .topbar, .hero-actions, .activity-controls, .quiz-actions, .timer-panel,
+      #quiz, #activities, footer { display: none !important; }
+      body { background: white; }
+      .hero { padding: 24px 0; background: white; color: var(--ink); }
+      .hero-copy { color: var(--ink); }
+      .hero .eyebrow { color: var(--green); }
+      .hero-facts { color: var(--ink); }
+      .fact { border-color: var(--line); color: var(--ink); }
+      .section { padding-top: 25px; }
+      .unit-card, .outcome { box-shadow: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <nav class="container nav" aria-label="Navigasi utama">
+      <a class="brand" href="#utama">
+        <span class="brand-mark" aria-hidden="true">♻</span>
+        <span>Latihan Kelestarian</span>
+      </a>
+      <div class="nav-links">
+        <a href="#hasil">Hasil</a>
+        <a href="#unit">Kandungan</a>
+        <a href="#aktiviti">Aktiviti</a>
+        <a href="#kuiz">Kuiz</a>
+        <a href="#komitmen">Komitmen</a>
+        <a href="slaid/" target="_blank" rel="noopener">Slaid interaktif ↗</a>
+        <a href="kuiz/" target="_blank" rel="noopener">Kuiz 10 soalan ↗</a>
+      </div>
+    </nav>
+  </div>
+
+  <header class="hero" id="utama">
+    <div class="container hero-inner">
+      <p class="eyebrow">Latihan operasi perniagaan mampan</p>
+      <h1>Kelestarian bermula daripada operasi harian.</h1>
+      <p class="hero-copy">
+        Terokai cara organisasi boleh mengurus impak ekonomi, alam sekitar,
+        sosial dan tadbir urus—kemudian bina tindakan yang praktikal dan boleh diukur.
+      </p>
+      <div class="hero-actions">
+        <a class="button" href="#unit">Terokai kandungan latihan</a>
+        <a class="button button-outline" href="#aktiviti">Mulakan aktiviti</a>
+      </div>
+      <div class="hero-facts" aria-label="Ringkasan latihan">
+        <span class="fact">3 unit pembelajaran</span>
+        <span class="fact">Aktiviti untuk perbincangan kumpulan</span>
+        <span class="fact">Kuiz dan refleksi kendiri</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section container" id="hasil">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Tujuan latihan</p>
+          <h2>Selepas latihan, peserta boleh…</h2>
+        </div>
+        <p>
+          Gunakan hasil pembelajaran ini sebagai panduan untuk perbincangan,
+          latihan kumpulan dan tindakan susulan di tempat kerja.
+        </p>
+      </div>
+
+      <div class="outcomes">
+        <article class="outcome">
+          <div class="outcome-icon" aria-hidden="true">🌱</div>
+          <h3>Memahami konsep</h3>
+          <p>Menerangkan kelestarian operasi perniagaan dan dimensi EESG.</p>
+        </article>
+        <article class="outcome">
+          <div class="outcome-icon" aria-hidden="true">🧭</div>
+          <h3>Mengenal pasti keutamaan</h3>
+          <p>Menghubungkan isu operasi dengan kesan, sasaran dan petunjuk prestasi.</p>
+        </article>
+        <article class="outcome">
+          <div class="outcome-icon" aria-hidden="true">📈</div>
+          <h3>Merancang tindakan</h3>
+          <p>Memilih strategi yang praktikal, merekod bukti dan menilai kemajuan.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section container" id="unit">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Peta pembelajaran</p>
+          <h2>Tiga unit latihan</h2>
+        </div>
+        <p>
+          Perjalanan latihan bergerak daripada memahami konsep kepada merancang
+          dan mengekalkan amalan kelestarian.
+        </p>
+      </div>
+
+      <div class="unit-grid">
+        <article class="unit-card">
+          <span class="unit-label">UNIT 1 · PENGENALAN</span>
+          <h3>Kelestarian dalam konteks operasi perniagaan</h3>
+          <p>Kenali konsep, kepentingan dan kaitan kelestarian dengan prestasi organisasi.</p>
+          <ul>
+            <li>Apakah kelestarian operasi perniagaan?</li>
+            <li>Daripada 3P kepada EESG</li>
+            <li>Dimensi EESG dalam operasi harian</li>
+            <li>Trend pasaran dan pelaporan</li>
+          </ul>
+          <p class="unit-foot">Fokus: memahami “mengapa”</p>
+        </article>
+
+        <article class="unit-card">
+          <span class="unit-label">UNIT 2 · PROSES</span>
+          <h3>Proses amalan kelestarian operasi</h3>
+          <p>Kenal pasti isu, tetapkan sasaran, jalankan tindakan dan semak kemajuan.</p>
+          <ul>
+            <li>Mengenal pasti isu dan kesan operasi</li>
+            <li>Menetapkan keutamaan serta sasaran</li>
+            <li>Memilih KPI dan merekod data</li>
+            <li>Menilai hasil untuk penambahbaikan</li>
+          </ul>
+          <p class="unit-foot">Fokus: memahami “bagaimana”</p>
+        </article>
+
+        <article class="unit-card">
+          <span class="unit-label">UNIT 3 · PELAKSANAAN</span>
+          <h3>Faedah, cabaran dan strategi</h3>
+          <p>Nilai manfaat dan halangan, kemudian pilih langkah yang sesuai dengan organisasi.</p>
+          <ul>
+            <li>Faedah pelaksanaan kelestarian</li>
+            <li>Cabaran dalam operasi perniagaan</li>
+            <li>Strategi mencapai dan mengekalkan amalan</li>
+            <li>Kajian kes industri minyak sawit Malaysia</li>
+          </ul>
+          <p class="unit-foot">Fokus: merancang “apa seterusnya”</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section container" aria-labelledby="eesg-title">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Kerangka utama</p>
+          <h2 id="eesg-title">Lihat operasi melalui lensa EESG</h2>
+        </div>
+        <p>
+          Satu keputusan operasi boleh memberi kesan kepada beberapa dimensi
+          serentak. Pertimbangkan kesan menyeluruh, bukan satu ukuran sahaja.
+        </p>
+      </div>
+
+      <div class="eesg-grid">
+        <article class="eesg-item">
+          <span class="eesg-letter">E</span>
+          <strong>Ekonomi</strong>
+          <p>Kos, produktiviti, kecekapan sumber dan daya tahan perniagaan.</p>
+        </article>
+        <article class="eesg-item">
+          <span class="eesg-letter">E</span>
+          <strong>Alam sekitar</strong>
+          <p>Tenaga, air, bahan mentah, sisa dan kesan terhadap alam sekitar.</p>
+        </article>
+        <article class="eesg-item">
+          <span class="eesg-letter">S</span>
+          <strong>Sosial</strong>
+          <p>Keselamatan, kebajikan pekerja, pelanggan dan komuniti.</p>
+        </article>
+        <article class="eesg-item">
+          <span class="eesg-letter">G</span>
+          <strong>Tadbir urus</strong>
+          <p>Etika, tanggungjawab, ketelusan dan rekod yang boleh dipercayai.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section container" id="aktiviti">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Cuba bersama kumpulan</p>
+          <h2>Aktiviti interaktif</h2>
+        </div>
+        <p>
+          Pilih aktiviti, jana cabaran perbincangan dan gunakan pemasa
+          untuk mengurus masa kumpulan.
+        </p>
+      </div>
+
+      <div class="activity-layout">
+        <article class="activity-card">
+          <h3>Cabaran perbincangan kumpulan</h3>
+          <p>Pilih satu aktiviti untuk mendapatkan situasi latihan secara rawak.</p>
+
+          <label for="activity-select"><strong>Pilih aktiviti</strong></label>
+          <select id="activity-select">
+            <option value="eesg">Pemetaan EESG</option>
+            <option value="kpi">Klinik KPI Kelestarian</option>
+            <option value="case">Kajian Kes: Operasi Perniagaan</option>
+          </select>
+
+          <div class="prompt-box" id="activity-prompt" aria-live="polite">
+            <strong>Cabaran kumpulan</strong>
+            <span>Pilih aktiviti dan tekan “Jana cabaran”.</span>
+          </div>
+
+          <div class="activity-controls">
+            <button class="button button-dark button-small" id="generate-prompt" type="button">
+              Jana cabaran
+            </button>
+            <button class="button button-small" id="print-page" type="button">
+              Cetak bahan latihan
+            </button>
+          </div>
+        </article>
+
+        <aside class="timer-panel" aria-label="Pemasa aktiviti">
+          <h3>Pemasa aktiviti</h3>
+          <div class="timer-display" id="timer-display" aria-live="polite">12:00</div>
+          <p class="timer-status" id="timer-status">Masa cadangan: 12 minit</p>
+          <div class="activity-controls">
+            <button class="button button-dark button-small" id="timer-start" type="button">Mula</button>
+            <button class="button button-small" id="timer-reset" type="button">Set semula</button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section container" id="kuiz">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Semak pemahaman</p>
+          <h2>Kuiz ringkas</h2>
+        </div>
+        <p>
+          Jawab semua soalan. Anda akan menerima markah dan maklum balas
+          selepas menghantar jawapan.
+        </p>
+      </div>
+
+      <div class="quiz-wrap">
+        <div class="quiz-meta">
+          <span id="quiz-count">Soalan 1 daripada 6</span>
+          <span id="quiz-score">Markah: 0</span>
+        </div>
+        <div class="progress-track" role="progressbar" aria-label="Kemajuan kuiz"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="quiz-progress-track">
+          <div class="progress-bar" id="quiz-progress"></div>
+        </div>
+
+        <form id="quiz-form">
+          <p class="quiz-question" id="quiz-question"></p>
+          <div class="quiz-options" id="quiz-options"></div>
+          <p class="quiz-feedback" id="quiz-feedback" aria-live="polite"></p>
+          <div class="quiz-actions">
+            <button class="button button-dark" id="quiz-submit" type="submit">Semak jawapan</button>
+            <button class="button hidden" id="quiz-next" type="button">Soalan seterusnya</button>
+            <button class="button button-dark hidden" id="quiz-restart" type="button">Cuba semula</button>
+          </div>
+        </form>
+
+        <div class="quiz-result hidden" id="quiz-result" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="section container" id="komitmen">
+      <div class="takeaway">
+        <p class="kicker">Tindakan selepas latihan</p>
+        <h2>Satu komitmen, satu ukuran</h2>
+        <p>
+          Pilih satu tindakan kecil yang realistik untuk dicuba dalam operasi
+          kerja. Nyatakan juga ukuran yang boleh membantu anda melihat kemajuannya.
+        </p>
+
+        <form class="commitment" id="commitment-form">
+          <label>
+            Tindakan yang akan saya cuba
+            <input id="commitment-action" type="text"
+                   placeholder="Contoh: mengasingkan sisa di ruang kerja" required>
+          </label>
+          <label>
+            Ukuran untuk memantau kemajuan
+            <input id="commitment-measure" type="text"
+                   placeholder="Contoh: jumlah sisa yang diasingkan setiap minggu" required>
+          </label>
+          <div>
+            <button class="button" type="submit">Simpan komitmen</button>
+          </div>
+        </form>
+        <p class="commitment-note" id="commitment-note" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      Laman latihan: Kelestarian dalam Konteks Operasi Perniagaan ·
+      EBIC'26 · CEDI UUM · Dr. Khairol Anuar Ishak
+    </div>
+  </footer>
+
+  <script>
+    // Situasi ringkas untuk aktiviti kumpulan.
+    const prompts = {
+      eesg: [
+        "Sebuah kedai makan mahu mengurangkan penggunaan bekas sekali guna. Petakan kesan keputusan ini kepada dimensi EESG.",
+        "Sebuah kilang melabur dalam peralatan cekap tenaga. Apakah manfaat ekonomi dan alam sekitar, dan apakah data yang perlu direkodkan?",
+        "Perniagaan memilih pembekal baharu yang menawarkan harga lebih rendah. Apakah soalan sosial dan tadbir urus yang patut dipertimbangkan?"
+      ],
+      kpi: [
+        "Sisa makanan di kafeteria meningkat. Cadangkan satu sasaran, KPI, sumber data dan kekerapan rekod.",
+        "Penggunaan air bulanan berubah-ubah. Apakah maklumat tambahan yang diperlukan supaya prestasi boleh dibandingkan dengan adil?",
+        "Pekerja melaporkan isu keselamatan berulang. Cadangkan ukuran yang boleh menunjukkan sama ada tindakan pembaikan berkesan."
+      ],
+      case: [
+        "Sebuah organisasi mempunyai bajet terhad, data operasi yang tidak lengkap dan pelanggan yang semakin mengambil berat tentang amalan perniagaan. Apakah tindakan pertama yang patut diutamakan?",
+        "Dalam satu operasi pengeluaran, terdapat sisa bahan mentah dan kebimbangan tentang keselamatan pekerja. Bina cadangan tindakan yang mengambil kira lebih daripada satu dimensi EESG.",
+        "Bincangkan kajian kes industri minyak sawit dari perspektif pengusaha, pekerja, komuniti, pelanggan dan pihak berkuasa. Apakah bukti yang perlu dikumpulkan sebelum membuat kesimpulan?"
+      ]
+    };
+
+    const activitySelect = document.getElementById("activity-select");
+    const activityPrompt = document.getElementById("activity-prompt");
+
+    document.getElementById("generate-prompt").addEventListener("click", () => {
+      const options = prompts[activitySelect.value];
+      const prompt = options[Math.floor(Math.random() * options.length)];
+      activityPrompt.innerHTML = `<strong>Cabaran kumpulan</strong><span>${prompt}</span>`;
+    });
+
+    document.getElementById("print-page").addEventListener("click", () => window.print());
+
+    // Pemasa 12 minit. Butang yang sama digunakan untuk mula dan jeda.
+    const timerDisplay = document.getElementById("timer-display");
+    const timerStatus = document.getElementById("timer-status");
+    const timerStart = document.getElementById("timer-start");
+    const timerReset = document.getElementById("timer-reset");
+    const initialSeconds = 12 * 60;
+    let secondsLeft = initialSeconds;
+    let timerInterval = null;
+
+    function updateTimer() {
+      const minutes = Math.floor(secondsLeft / 60);
+      const seconds = secondsLeft % 60;
+      timerDisplay.textContent =
+        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    }
+
+    timerStart.addEventListener("click", () => {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        timerStart.textContent = "Sambung";
+        timerStatus.textContent = "Pemasa dijeda.";
+        return;
+      }
+
+      if (secondsLeft <= 0) {
+        secondsLeft = initialSeconds;
+        updateTimer();
+      }
+
+      timerStart.textContent = "Jeda";
+      timerStatus.textContent = "Masa sedang berjalan.";
+      timerInterval = setInterval(() => {
+        secondsLeft--;
+        updateTimer();
+
+        if (secondsLeft <= 0) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          timerStart.textContent = "Mula semula";
+          timerStatus.textContent = "Masa tamat. Bincangkan hasil aktiviti.";
+        }
+      }, 1000);
+    });
+
+    timerReset.addEventListener("click", () => {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      secondsLeft = initialSeconds;
+      updateTimer();
+      timerStart.textContent = "Mula";
+      timerStatus.textContent = "Masa cadangan: 12 minit";
+    });
+
+    // Kuiz kendiri.
+    const quizQuestions = [
+      {
+        question: "Apakah maksud kelestarian dalam operasi perniagaan?",
+        options: [
+          "Mengutamakan keuntungan jangka pendek sahaja",
+          "Mengurus kesan ekonomi, alam sekitar, sosial dan tadbir urus",
+          "Menghentikan semua aktiviti yang menggunakan sumber",
+          "Menumpukan pemasaran tanpa mengubah operasi"
+        ],
+        answer: 1,
+        explanation: "Kelestarian mengambil kira prestasi perniagaan dan kesannya terhadap manusia, alam sekitar serta cara organisasi diurus."
+      },
+      {
+        question: "Yang manakah contoh dimensi sosial?",
+        options: [
+          "Mengurangkan penggunaan elektrik",
+          "Meningkatkan keselamatan dan kebajikan pekerja",
+          "Merekod kos pengeluaran",
+          "Menyemak proses kelulusan pembelian"
+        ],
+        answer: 1,
+        explanation: "Keselamatan, kebajikan dan layanan adil kepada pekerja berkaitan dengan dimensi sosial."
+      },
+      {
+        question: "Apakah langkah yang wajar dibuat sebelum menetapkan sasaran kelestarian?",
+        options: [
+          "Memahami isu dan keadaan semasa operasi",
+          "Memilih sasaran secara rawak",
+          "Menerbitkan laporan tanpa data",
+          "Meniru sasaran organisasi lain tanpa semakan"
+        ],
+        answer: 0,
+        explanation: "Gambaran keadaan semasa membantu organisasi memilih sasaran yang relevan dan boleh dinilai."
+      },
+      {
+        question: "Yang manakah contoh KPI untuk memantau sisa makanan?",
+        options: [
+          "Bilangan poster di premis",
+          "Berat sisa makanan yang direkodkan setiap minggu",
+          "Warna tong sampah",
+          "Jumlah mesyuarat bulanan"
+        ],
+        answer: 1,
+        explanation: "Berat sisa yang direkodkan secara konsisten ialah ukuran yang boleh digunakan untuk memantau perubahan."
+      },
+      {
+        question: "Mengapakah rekod dan bukti penting dalam pelaporan kelestarian?",
+        options: [
+          "Untuk menyokong tuntutan dan membolehkan kemajuan disemak",
+          "Untuk menggantikan tindakan sebenar",
+          "Supaya organisasi tidak perlu menilai sasaran",
+          "Untuk memastikan semua perniagaan mempunyai keputusan yang sama"
+        ],
+        answer: 0,
+        explanation: "Rekod yang tepat dan boleh dijejak menyokong pelaporan serta membantu organisasi menilai prestasi."
+      },
+      {
+        question: "Apakah pendekatan yang sesuai jika organisasi mempunyai bajet terhad?",
+        options: [
+          "Tangguhkan semua tindakan",
+          "Utamakan tindakan praktikal dan pantau hasilnya",
+          "Laksanakan semua idea pada masa yang sama",
+          "Pilih tindakan paling mahal tanpa menilai keperluan"
+        ],
+        answer: 1,
+        explanation: "Organisasi boleh bermula dengan tindakan yang sesuai dengan keutamaan dan sumber, kemudian membuat penambahbaikan."
+      }
+    ];
+
+    const quizForm = document.getElementById("quiz-form");
+    const quizQuestion = document.getElementById("quiz-question");
+    const quizOptions = document.getElementById("quiz-options");
+    const quizFeedback = document.getElementById("quiz-feedback");
+    const quizCount = document.getElementById("quiz-count");
+    const quizScore = document.getElementById("quiz-score");
+    const quizProgress = document.getElementById("quiz-progress");
+    const quizProgressTrack = document.getElementById("quiz-progress-track");
+    const quizSubmit = document.getElementById("quiz-submit");
+    const quizNext = document.getElementById("quiz-next");
+    const quizRestart = document.getElementById("quiz-restart");
+    const quizResult = document.getElementById("quiz-result");
+
+    let questionIndex = 0;
+    let score = 0;
+    let answeredCurrent = false;
+
+    function renderQuestion() {
+      const item = quizQuestions[questionIndex];
+      answeredCurrent = false;
+
+      quizQuestion.textContent = item.question;
+      quizCount.textContent = `Soalan ${questionIndex + 1} daripada ${quizQuestions.length}`;
+      quizScore.textContent = `Markah: ${score}`;
+      quizFeedback.textContent = "";
+      quizFeedback.className = "quiz-feedback";
+      quizOptions.innerHTML = item.options.map((option, index) => `
+        <label class="quiz-option">
+          <input type="radio" name="quiz-answer" value="${index}">
+          <span>${option}</span>
+        </label>
+      `).join("");
+
+      quizSubmit.classList.remove("hidden");
+      quizSubmit.disabled = false;
+      quizNext.classList.add("hidden");
+      quizResult.classList.add("hidden");
+
+      const progress = Math.round((questionIndex / quizQuestions.length) * 100);
+      quizProgress.style.width = `${progress}%`;
+      quizProgressTrack.setAttribute("aria-valuenow", progress);
+    }
+
+    quizForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (answeredCurrent) return;
+
+      const selected = quizForm.querySelector('input[name="quiz-answer"]:checked');
+      if (!selected) {
+        quizFeedback.textContent = "Pilih satu jawapan sebelum menyemak.";
+        quizFeedback.className = "quiz-feedback bad";
+        return;
+      }
+
+      answeredCurrent = true;
+      const item = quizQuestions[questionIndex];
+      const isCorrect = Number(selected.value) === item.answer;
+
+      if (isCorrect) score++;
+
+      quizOptions.querySelectorAll("input").forEach((input) => {
+        input.disabled = true;
+      });
+
+      quizScore.textContent = `Markah: ${score}`;
+      quizFeedback.textContent = `${isCorrect ? "Betul! " : "Belum tepat. "}${item.explanation}`;
+      quizFeedback.className = `quiz-feedback ${isCorrect ? "good" : "bad"}`;
+      quizSubmit.classList.add("hidden");
+
+      if (questionIndex < quizQuestions.length - 1) {
+        quizNext.classList.remove("hidden");
+      } else {
+        showQuizResult();
+      }
+    });
+
+    function showQuizResult() {
+      const percentage = Math.round((score / quizQuestions.length) * 100);
+      const message = percentage === 100
+        ? "Cemerlang! Anda menguasai konsep utama."
+        : percentage >= 70
+          ? "Bagus! Semak semula penerangan untuk mengukuhkan pemahaman."
+          : "Teruskan belajar dan cuba kuiz sekali lagi.";
+
+      quizProgress.style.width = "100%";
+      quizProgressTrack.setAttribute("aria-valuenow", "100");
+      quizCount.textContent = "Kuiz selesai";
+      quizResult.innerHTML = `
+        <h3>Markah akhir: ${score} / ${quizQuestions.length} (${percentage}%)</h3>
+        <p>${message}</p>
+      `;
+      quizResult.classList.remove("hidden");
+      quizRestart.classList.remove("hidden");
+    }
+
+    quizNext.addEventListener("click", () => {
+      questionIndex++;
+      renderQuestion();
+    });
+
+    quizRestart.addEventListener("click", () => {
+      questionIndex = 0;
+      score = 0;
+      renderQuestion();
+      quizRestart.classList.add("hidden");
+    });
+
+    renderQuestion();
+
+    // Komitmen dipaparkan pada sesi semasa sahaja; tidak dihantar ke pelayan.
+    document.getElementById("commitment-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const action = document.getElementById("commitment-action").value.trim();
+      const measure = document.getElementById("commitment-measure").value.trim();
+
+      if (!action || !measure) return;
+
+      document.getElementById("commitment-note").textContent =
+        `Komitmen direkodkan untuk sesi ini: “${action}” — dipantau melalui “${measure}”.`;
+    });
+  </script>
+</body>
+</html>
