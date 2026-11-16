@@ -586,6 +586,8 @@
 
     .commitment input::placeholder { color: rgb(255 255 255 / 62%); }
 
+    .commitment .full { grid-column: 1 / -1; }
+
     .commitment-note {
       min-height: 26px;
       margin-top: 12px !important;
@@ -895,6 +897,11 @@
         </p>
 
         <form class="commitment" id="commitment-form">
+          <label class="full">
+            Nama / pasukan (pilihan)
+            <input id="commitment-name" type="text" autocomplete="name"
+                   placeholder="Contoh: Aina — Pasukan 3">
+          </label>
           <label>
             Tindakan yang akan saya cuba
             <input id="commitment-action" type="text"
@@ -1185,16 +1192,73 @@
 
     renderQuestion();
 
-    // Komitmen dipaparkan pada sesi semasa sahaja; tidak dihantar ke pelayan.
-    document.getElementById("commitment-form").addEventListener("submit", (event) => {
+    // Komitmen: disimpan dalam browser peserta (localStorage) dan, jika
+    // COMMITMENT_ENDPOINT diisi, dihantar ke Google Sheet melalui Apps Script.
+    const COMMITMENT_ENDPOINT = ""; // tampal URL Web App Apps Script di sini
+    const COMMITMENT_KEY = "ebic26:komitmen";
+
+    const commitForm = document.getElementById("commitment-form");
+    const commitName = document.getElementById("commitment-name");
+    const commitAction = document.getElementById("commitment-action");
+    const commitMeasure = document.getElementById("commitment-measure");
+    const commitNote = document.getElementById("commitment-note");
+
+    const loadCommitment = () => {
+      try { return JSON.parse(localStorage.getItem(COMMITMENT_KEY)); } catch (e) { return null; }
+    };
+    const saveCommitment = (data) => {
+      try { localStorage.setItem(COMMITMENT_KEY, JSON.stringify(data)); return true; } catch (e) { return false; }
+    };
+    const showCommitment = (data, extra) => {
+      const when = new Date(data.masa).toLocaleString("ms-MY");
+      commitNote.textContent =
+        `Komitmen anda (${when}): “${data.tindakan}” — dipantau melalui “${data.ukuran}”.` +
+        (extra ? ` ${extra}` : "");
+    };
+
+    // Papar semula komitmen yang pernah disimpan dalam browser ini.
+    const savedCommitment = loadCommitment();
+    if (savedCommitment) {
+      commitName.value = savedCommitment.nama || "";
+      commitAction.value = savedCommitment.tindakan || "";
+      commitMeasure.value = savedCommitment.ukuran || "";
+      showCommitment(savedCommitment);
+    }
+
+    commitForm.addEventListener("submit", async (event) => {
       event.preventDefault();
-      const action = document.getElementById("commitment-action").value.trim();
-      const measure = document.getElementById("commitment-measure").value.trim();
+      const data = {
+        nama: commitName.value.trim(),
+        tindakan: commitAction.value.trim(),
+        ukuran: commitMeasure.value.trim(),
+        masa: new Date().toISOString(),
+      };
+      if (!data.tindakan || !data.ukuran) return;
 
-      if (!action || !measure) return;
+      const savedLocally = saveCommitment(data);
 
-      document.getElementById("commitment-note").textContent =
-        `Komitmen direkodkan untuk sesi ini: “${action}” — dipantau melalui “${measure}”.`;
+      if (!COMMITMENT_ENDPOINT) {
+        showCommitment(data, savedLocally ? "Disimpan dalam browser ini." : "");
+        return;
+      }
+
+      const button = commitForm.querySelector("button");
+      button.disabled = true;
+      showCommitment(data, "Menghantar…");
+      try {
+        // text/plain + no-cors elak preflight CORS yang tidak disokong Apps Script.
+        await fetch(COMMITMENT_ENDPOINT, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(data),
+        });
+        showCommitment(data, "Telah dihantar kepada fasilitator.");
+      } catch (e) {
+        showCommitment(data, "Disimpan dalam browser, tetapi gagal dihantar — cuba lagi.");
+      } finally {
+        button.disabled = false;
+      }
     });
   </script>
 </body>
