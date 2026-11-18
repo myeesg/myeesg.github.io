@@ -876,13 +876,21 @@
       <div class="activity-layout">
         <article class="activity-card">
           <h3>Cabaran perbincangan kumpulan</h3>
-          <p>Pilih satu aktiviti untuk mendapatkan situasi latihan secara rawak.</p>
+          <p>Pilih kes dari Buku Kerja Kes Kajian, tekan “Jana cabaran” untuk paparkan tugasan pasukan, dan “Cetak bahan latihan” untuk buka lembaran kerja kes itu.</p>
 
           <label for="activity-select"><strong>Pilih aktiviti</strong></label>
           <select id="activity-select">
-            <option value="eesg">Pemetaan EESG</option>
-            <option value="kpi">Klinik KPI Kelestarian</option>
-            <option value="case">Kajian Kes: Operasi Perniagaan</option>
+            <optgroup label="Buku Kerja Kes Kajian EBIC'26">
+              <option value="kes1">Kes 1 · Detektif EESG: Cantik Collection</option>
+              <option value="kes2">Kes 2 · Kafe Seri Rasa: Rekod &amp; Lapor</option>
+              <option value="kes3">Kes 3 · Pelan Tindakan Kelestarian untuk Idea EBIC Anda</option>
+              <option value="kes4">Kes 4 · Industri Sawit Malaysia: Buktikan atau Tersisih</option>
+              <option value="final">FINAL · ESG Pitch 90 Saat</option>
+            </optgroup>
+            <optgroup label="Latihan tambahan (cabaran rawak)">
+              <option value="eesg">Pemetaan EESG</option>
+              <option value="kpi">Klinik KPI Kelestarian</option>
+            </optgroup>
           </select>
 
           <div class="prompt-box" id="activity-prompt" aria-live="polite">
@@ -1002,33 +1010,126 @@
         "Sisa makanan di kafeteria meningkat. Cadangkan satu sasaran, KPI, sumber data dan kekerapan rekod.",
         "Penggunaan air bulanan berubah-ubah. Apakah maklumat tambahan yang diperlukan supaya prestasi boleh dibandingkan dengan adil?",
         "Pekerja melaporkan isu keselamatan berulang. Cadangkan ukuran yang boleh menunjukkan sama ada tindakan pembaikan berkesan."
-      ],
-      case: [
-        "Sebuah organisasi mempunyai bajet terhad, data operasi yang tidak lengkap dan pelanggan yang semakin mengambil berat tentang amalan perniagaan. Apakah tindakan pertama yang patut diutamakan?",
-        "Dalam satu operasi pengeluaran, terdapat sisa bahan mentah dan kebimbangan tentang keselamatan pekerja. Bina cadangan tindakan yang mengambil kira lebih daripada satu dimensi EESG.",
-        "Bincangkan kajian kes industri minyak sawit dari perspektif pengusaha, pekerja, komuniti, pelanggan dan pihak berkuasa. Apakah bukti yang perlu dikumpulkan sebelum membuat kesimpulan?",
-        "Straits View Hotel ada RM15,000 dan 90 hari. Pilih satu isu (tenaga, air, sisa makanan atau toiletries) dan cadangkan satu tindakan dengan kos, kaitan EESG–3P–SDG serta satu KPI.",
-        "Naluri menghubungkan data tuntutan kesihatan dengan prestasi pekerja. Apakah nilai bisnesnya, dan apakah risiko privasi serta keadilan yang perlu diurus?"
       ]
     };
+
+    // Kes dari Buku Kerja Kes Kajian EBIC'26 (ikut susunan buku kerja).
+    const cases = {
+      kes1: {
+        title: "Kes 1 · Detektif EESG: Cantik Collection",
+        meta: "Unit 1 — 4 dimensi EESG, bukti yang boleh direkod · Rabu · Blok A · 15 min + bentang 2 min",
+        min: 15,
+        tasks: [
+          "Kenal pasti sekurang-kurangnya 6 amalan Cantik Collection dan kelaskan setiap satu kepada dimensi EESG (Economy / Environment / Social / Governance). Sesetengah amalan boleh masuk dua dimensi — nyatakan kedua-duanya.",
+          "Bagi setiap amalan, nyatakan BUKTI yang boleh direkod dan ditunjukkan kepada pasar raya (dokumen, log, gambar, data).",
+          "Cadangkan SATU penambahbaikan mudah dan murah bagi setiap amalan — sesuatu yang boleh dimulakan minggu depan.",
+          "Soalan detektif: Apakah SATU kelemahan terbesar Cantik Collection yang menyebabkan Puan Aina rasa dia “tiada program ESG”? Dimensi EESG yang mana?",
+          "Sediakan pembentangan 2 minit: jadual anda + jawapan soalan detektif + 1 pengajaran untuk bisnes EBIC pasukan."
+        ],
+        score: "+2 setiap baris lengkap & tepat (maks 12) · +5 bonus penambahbaikan paling kreatif · Pembentangan maks 10",
+        pdf: "assets/buku-kerja/kes1.pdf"
+      },
+      kes2: {
+        title: "Kes 2 · Kafe Seri Rasa: Rekod & Lapor",
+        meta: "Unit 2 — Rekod, laporan, pemantauan & tambah baik · Khamis · Blok C · 10 min + Bukti Hunt + bentang 2 min",
+        min: 10,
+        tasks: [
+          "Lengkapkan Jadual Rekod & Laporan bulan Mac bagi keempat-empat tindakan (Lembaran Kerja 2A): KPI yang sepatutnya, bukti yang ada, bukti yang tiada, dan status.",
+          "Bukti Hunt (Lembaran 2B): padankan setiap tindakan dengan buktinya — dan kenal pasti tindakan yang TIDAK boleh dilaporkan kerana tiada bukti.",
+          "Pantau, nilai & kawal: bagi setiap tindakan, tandakan ✅ sasaran tercapai / ⚠️ separa / ❌ tidak boleh dinilai — dan tulis SATU tindakan kawalan.",
+          "Tambah baik: pekerja merungut “merekod ini beban”. Cadangkan satu sistem rekod yang lebih mudah, konsisten dan tetap boleh dibuktikan kepada bank. Nyatakan PIC setiap syif.",
+          "Sediakan pembentangan 2 minit: “Laporan Kelestarian Mac — Kafe Seri Rasa” seolah-olah anda membentang kepada pegawai bank."
+        ],
+        score: "Jadual 2A maks 10 · Bukti Hunt +2 setiap padanan betul (maks 10) · Pembentangan maks 10",
+        pdf: "assets/buku-kerja/kes2.pdf"
+      },
+      kes3: {
+        title: "Kes 3 · Pelan Tindakan Kelestarian untuk Idea EBIC Anda",
+        meta: "Unit 2 · Proses Amalan Kelestarian — Merancang · Khamis · Blok C · 20 minit kerja pasukan + galeri berjalan 5 minit + pembentangan 3 minit<br>Konsep diuji: isu → matlamat → KPI → tindakan → sumber → PIC → tempoh → bukti · 8 ciri pelan yang baik",
+        min: 20,
+        tasks: [
+          "Senaraikan isu kelestarian sebenar yang akan dihadapi bisnes EBIC anda — sekurang-kurangnya satu bagi setiap dimensi Economy, Environment, Social dan Governance. Gunakan contoh Kopi Kampus dalam slaid sebagai panduan format.",
+          "Lengkapkan Pelan Tindakan (Lembaran 3A) dengan sekurang-kurangnya 4 baris merentasi dimensi EESG berbeza. Setiap KPI mesti ada angka, sasaran dan tempoh.",
+          "Semak pelan anda dengan senarai semak 8 ciri (Lembaran 3B). Setiap ciri yang dipenuhi sepenuhnya bernilai 2 markah.",
+          "Galeri berjalan: tampal pelan pada dinding. Pasukan lain melawat dan meninggalkan maklum balas (Lembaran 3C). Baiki pelan anda berdasarkan maklum balas sebelum FINAL.",
+          "Pembentangan 3 minit: isu paling kritikal → KPI → tindakan → bukti → apa yang anda ubah selepas maklum balas galeri."
+        ],
+        score: "8 ciri × 2 = maks 16 · Pembentangan maks 10 · Pelan ini DIGUNAKAN SEMULA dalam FINAL ESG Pitch",
+        pdf: "assets/buku-kerja/kes3.pdf"
+      },
+      kes4: {
+        title: "Kes 4 · Industri Sawit Malaysia: Buktikan atau Tersisih",
+        meta: "Unit 3 — Cabaran, strategi 3 peringkat, rantaian bekalan · Khamis · Blok D · 5 min debat + 10 min tugasan + bentang 2 min",
+        min: 10,
+        tasks: [
+          "Bahagian A — Debat Kilat 4 Penjuru (5 min): “Kalau pasaran beralih dari Eropah ke Asia, PKS sawit seperti Harapan Jaya boleh berhenti risau tentang ESG.” Setiap penjuru beri SATU hujah dalam 30 saat.",
+          "Cabaran: kelaskan masalah Harapan Jaya kepada cabaran DALAMAN dan LUARAN. Yang mana paling berisiko kepada pembaharuan kontrak?",
+          "Strategi 3 peringkat: cadangkan SATU tindakan bagi setiap peringkat — Korporat (hala tuju), Perniagaan (cara bersaing) dan Fungsian (tindakan harian) — yang boleh dilaksanakan dalam 8 bulan.",
+          "Rekod ESG asas: senaraikan 5 rekod yang Harapan Jaya patut mula simpan ESOK, format paling mudah (buku log / Google Form / gambar bertarikh), dan PIC-nya.",
+          "Faedah: nyatakan 2 faedah jangka pendek dan 2 faedah jangka panjang jika Harapan Jaya berjaya — selain mengekalkan kontrak.",
+          "Pembentangan 2 minit: “Pelan 8 bulan Harapan Jaya” kepada Encik Rahim yang skeptikal. Yakinkan dia."
+        ],
+        score: "Kerja pasukan maks 10 (2 setiap soalan) · Pembentangan maks 10 · +5 bonus penjuru debat dengan hujah paling berasaskan bukti",
+        pdf: "assets/buku-kerja/kes4.pdf"
+      },
+      final: {
+        title: "FINAL · ESG Pitch 90 Saat",
+        meta: "Keseluruhan modul · Khamis · Sesi akhir · 5 min persediaan + 90 saat pitch + 1 min soalan juri<br>Bahan: Pelan Tindakan Kes 3 (yang telah ditambah baik)",
+        min: 5,
+        tasks: [
+          "1 isu kelestarian utama — isu sebenar bisnes anda + dimensi EESG.",
+          "1 matlamat + KPI — angka, sasaran, tempoh.",
+          "1 tindakan + PIC + sumber — apa, siapa, dengan apa.",
+          "1 bukti yang akan direkod.",
+          "1 strategi — nyatakan peringkatnya (Korporat / Perniagaan / Fungsian)."
+        ],
+        score: "Setiap kriteria 1–5 · Jumlah (maks 25) × 2 = maks 50 mata ke Papan Juara",
+        pdf: "assets/buku-kerja/final.pdf"
+      }
+    };
+    const WORKBOOK_PDF = "assets/buku-kerja/EBIC26_Buku_Kerja_Kes_Kajian.pdf";
 
     const activitySelect = document.getElementById("activity-select");
     const activityPrompt = document.getElementById("activity-prompt");
 
+    function showCase(c) {
+      activityPrompt.innerHTML =
+        `<strong>${c.title}</strong>` +
+        `<span style="display:block;font-size:.92em;opacity:.8;margin:4px 0 10px">${c.meta}</span>` +
+        `<span style="display:block"><b>Tugasan pasukan</b></span>` +
+        `<ol style="margin:6px 0 10px 1.2em;padding:0">${c.tasks.map(t => `<li style="margin-bottom:6px">${t}</li>`).join("")}</ol>` +
+        `<span style="display:block;font-size:.92em"><b>Pemarkahan:</b> ${c.score}</span>`;
+    }
+
     document.getElementById("generate-prompt").addEventListener("click", () => {
+      const c = cases[activitySelect.value];
+      if (c) {
+        showCase(c);
+        setTimerMinutes(c.min);
+        return;
+      }
       const options = prompts[activitySelect.value];
       const prompt = options[Math.floor(Math.random() * options.length)];
       activityPrompt.innerHTML = `<strong>Cabaran kumpulan</strong><span>${prompt}</span>`;
+      setTimerMinutes(12);
     });
 
-    document.getElementById("print-page").addEventListener("click", () => window.print());
+    activitySelect.addEventListener("change", () => {
+      activityPrompt.innerHTML = `<strong>Cabaran kumpulan</strong><span>Tekan “Jana cabaran”.</span>`;
+    });
+
+    // Cetak: buka lembaran kerja kes yang dipilih dari Buku Kerja Kes Kajian.
+    document.getElementById("print-page").addEventListener("click", () => {
+      const c = cases[activitySelect.value];
+      window.open(c ? c.pdf : WORKBOOK_PDF, "_blank", "noopener");
+    });
 
     // Pemasa 12 minit. Butang yang sama digunakan untuk mula dan jeda.
     const timerDisplay = document.getElementById("timer-display");
     const timerStatus = document.getElementById("timer-status");
     const timerStart = document.getElementById("timer-start");
     const timerReset = document.getElementById("timer-reset");
-    const initialSeconds = 12 * 60;
+    let initialSeconds = 12 * 60;
     let secondsLeft = initialSeconds;
     let timerInterval = null;
 
@@ -1074,8 +1175,18 @@
       secondsLeft = initialSeconds;
       updateTimer();
       timerStart.textContent = "Mula";
-      timerStatus.textContent = "Masa cadangan: 12 minit";
+      timerStatus.textContent = `Masa cadangan: ${initialSeconds / 60} minit`;
     });
+
+    function setTimerMinutes(m) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      initialSeconds = m * 60;
+      secondsLeft = initialSeconds;
+      updateTimer();
+      timerStart.textContent = "Mula";
+      timerStatus.textContent = `Masa cadangan: ${m} minit`;
+    }
 
     // Kuiz kendiri.
     const quizQuestions = [
