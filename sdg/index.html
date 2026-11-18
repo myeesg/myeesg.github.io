@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pengenalan kepada 17 Matlamat Pembangunan Mampan (SDG) Pertubuhan Bangsa-Bangsa Bersatu dan kaitannya dengan EESG.">
+  <meta name="theme-color" content="#123f32">
+  <title>Apakah SDG? | MyEESG Laman Latihan</title>
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <style>
+    :root {
+      --forest: #123f32;
+      --green: #197451;
+      --lime: #c9ef84;
+      --cream: #f7f8f2;
+      --paper: #fff;
+      --ink: #1c2b25;
+      --muted: #65756c;
+      --line: #e2e8e2;
+      --soft-green: #edf5ee;
+      --shadow: 0 16px 42px rgb(22 53 39 / 9%);
+      --radius: 20px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    a { color: inherit; }
+    button { font: inherit; }
+    button:focus-visible, a:focus-visible { outline: 3px solid #e6a93c; outline-offset: 3px; }
+    .container { width: min(1120px, calc(100% - 36px)); margin: 0 auto; }
+
+    .topbar {
+      position: sticky; z-index: 20; top: 0;
+      border-bottom: 1px solid rgb(255 255 255 / 12%);
+      background: rgb(18 63 50 / 96%); color: white;
+      backdrop-filter: blur(12px);
+    }
+    .nav { display: flex; min-height: 68px; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 10px; color: white; font-weight: 800; text-decoration: none; }
+    .brand-logo { display: inline-flex; align-items: center; }
+    .brand-logo img { display: block; width: auto; height: 34px; filter: drop-shadow(0 0 1px rgb(255 255 255 / 85%)) drop-shadow(0 0 3px rgb(255 255 255 / 35%)); }
+    .nav-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 18px; }
+    .nav-links a { color: rgb(255 255 255 / 86%); font-size: .92rem; text-decoration: none; }
+    .nav-links a:hover { color: var(--lime); }
+
+    .hero {
+      position: relative; overflow: hidden; padding: 76px 0 64px;
+      background: radial-gradient(ellipse at 86% 20%, rgb(201 239 132 / 17%), transparent 32%), linear-gradient(135deg, #123f32, #1d6448);
+      color: white;
+    }
+    .hero::after {
+      content: "17"; position: absolute; right: 3%; bottom: -60px;
+      font-size: clamp(180px, 30vw, 360px); font-weight: 900; line-height: 1;
+      color: rgb(255 255 255 / 6%); pointer-events: none;
+    }
+    .eyebrow { margin: 0 0 8px; color: var(--green); font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .hero .eyebrow { color: var(--lime); }
+    h1 { max-width: 760px; margin: 0 0 18px; font-size: clamp(2.3rem, 5.5vw, 4.2rem); line-height: 1.02; letter-spacing: -.04em; }
+    .hero-copy { max-width: 720px; margin: 0; color: rgb(255 255 255 / 86%); font-size: 1.12rem; }
+    .hero-facts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .fact { padding: 8px 14px; border: 1px solid rgb(255 255 255 / 25%); border-radius: 999px; font-size: .9rem; }
+    .fact b { color: var(--lime); }
+
+    .section { padding-top: 70px; }
+    h2 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.6vw, 2.5rem); line-height: 1.12; letter-spacing: -.03em; }
+    .lead { max-width: 780px; margin: 0; color: var(--muted); font-size: 1.05rem; }
+
+    .pillars { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 26px; }
+    .pillar {
+      padding: 18px; border: 1px solid var(--line); border-radius: var(--radius);
+      background: var(--paper); box-shadow: var(--shadow); text-align: left; cursor: pointer;
+      transition: transform .15s, border-color .15s;
+    }
+    .pillar:hover { transform: translateY(-2px); }
+    .pillar[aria-pressed="true"] { border-color: var(--green); box-shadow: 0 0 0 3px rgb(25 116 81 / 18%); }
+    .pillar .en { display: block; color: var(--green); font-size: .74rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .pillar strong { display: block; margin: 4px 0; font-size: 1.05rem; }
+    .pillar small { color: var(--muted); }
+    .filter-note { margin: 14px 0 0; color: var(--muted); font-size: .9rem; }
+    .filter-note button { border: 0; background: none; color: var(--green); font-weight: 700; text-decoration: underline; cursor: pointer; padding: 0; }
+
+    .goals { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; margin-top: 26px; }
+    .goal {
+      display: flex; flex-direction: column; overflow: hidden;
+      border: 1px solid var(--line); border-radius: 18px; background: var(--paper);
+      box-shadow: var(--shadow); transition: opacity .2s, transform .2s;
+    }
+    .goal.dim { opacity: .28; transform: scale(.98); }
+    .goal-head { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--c); color: var(--fg, #fff); }
+    .goal-num { font-size: 2rem; font-weight: 900; line-height: 1; min-width: 2ch; }
+    .goal-name { font-weight: 800; line-height: 1.25; }
+    .goal-body { flex: 1; padding: 14px 16px 16px; color: var(--muted); font-size: .92rem; }
+    .goal-body p { margin: 0; }
+    .goal-link {
+      display: inline-flex; margin-top: 12px; padding: 7px 13px; border-radius: 999px;
+      background: var(--forest); color: white; font-size: .85rem; font-weight: 700; text-decoration: none;
+    }
+    .goal-link:hover { background: var(--green); }
+
+    .link-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px; }
+    .card { padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); box-shadow: var(--shadow); }
+    .card h3 { margin: 0 0 6px; font-size: 1.08rem; }
+    .card p { margin: 0; color: var(--muted); font-size: .95rem; }
+    .note { margin-top: 20px; padding: 14px 18px; border-left: 4px solid #e6a93c; border-radius: 0 12px 12px 0; background: #fff6d9; color: #51452a; font-size: .95rem; }
+
+    .sources { margin-top: 70px; padding: 26px; border-radius: var(--radius); background: var(--soft-green); font-size: .9rem; color: var(--muted); }
+    .sources ul { margin: 8px 0 0; padding-left: 20px; }
+    .sources a { color: var(--green); }
+
+    footer { margin-top: 60px; padding: 28px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; text-align: center; }
+
+    @media (max-width: 900px) {
+      .pillars { grid-template-columns: repeat(2, 1fr); }
+      .link-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .container { width: min(100% - 26px, 1120px); }
+      .nav { display: block; padding: 13px 0; }
+      .nav-links { justify-content: flex-start; gap: 10px 14px; margin-top: 10px; }
+      .hero { padding: 54px 0 48px; }
+      .section { padding-top: 50px; }
+      .pillars { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <nav class="container nav" aria-label="Navigasi utama">
+      <a class="brand" href="../">
+        <span class="brand-logo"><img src="../assets/myeesg-logo.png" alt="MyEESG" width="105" height="36"></span>
+        <span class="brand-text">Latihan Kelestarian</span>
+      </a>
+      <div class="nav-links">
+        <a href="#apakah">Apakah SDG?</a>
+        <a href="#5p">5P</a>
+        <a href="#matlamat">17 Matlamat</a>
+        <a href="#eesg">Kaitan EESG</a>
+        <a href="../sdg.html">Permainan SDG 1</a>
+        <a href="../">← Laman utama</a>
+      </div>
+    </nav>
+  </div>
+
+  <header class="hero" id="apakah">
+    <div class="container">
+      <p class="eyebrow">Matlamat Pembangunan Mampan · Agenda 2030</p>
+      <h1>Apakah SDG?</h1>
+      <p class="hero-copy">
+        SDG (<em>Sustainable Development Goals</em>) atau Matlamat Pembangunan Mampan ialah
+        pelan tindakan global yang diterima pakai oleh semua negara anggota Pertubuhan
+        Bangsa-Bangsa Bersatu (PBB) pada September 2015 di Sidang Kemuncak Pembangunan
+        Mampan PBB, New York. Teras Agenda 2030 ini ialah 17 matlamat untuk menjamin
+        keamanan dan kemakmuran bagi manusia dan planet—kini dan pada masa depan.
+      </p>
+      <div class="hero-facts" aria-label="Ringkasan SDG">
+        <span class="fact"><b>17</b> matlamat</span>
+        <span class="fact"><b>169</b> sasaran</span>
+        <span class="fact">Diterima pakai <b>2015</b></span>
+        <span class="fact">Sasaran capai <b>2030</b></span>
+        <span class="fact">Semua negara anggota PBB, termasuk <b>Malaysia</b></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section container" id="5p">
+      <p class="eyebrow">Lima bidang tumpuan</p>
+      <h2>17 matlamat, 5P</h2>
+      <p class="lead">
+        Matlamat SDG saling berkait dan boleh dikumpulkan kepada lima bidang tumpuan.
+        Jabatan Perangkaan Malaysia (DOSM) menggunakan pengelompokan ini dalam laporan
+        Indikator SDG Malaysia. Klik satu bidang untuk menyerlahkan matlamatnya.
+      </p>
+      <div class="pillars" role="group" aria-label="Tapis matlamat mengikut bidang tumpuan">
+        <button class="pillar" type="button" data-p="people" aria-pressed="false"><span class="en">People</span><strong>Kemajuan Masyarakat</strong><small>Matlamat 1–5</small></button>
+        <button class="pillar" type="button" data-p="planet" aria-pressed="false"><span class="en">Planet</span><strong>Penjagaan Bumi</strong><small>Matlamat 6, 12–15</small></button>
+        <button class="pillar" type="button" data-p="prosperity" aria-pressed="false"><span class="en">Prosperity</span><strong>Kemakmuran</strong><small>Matlamat 7–11</small></button>
+        <button class="pillar" type="button" data-p="peace" aria-pressed="false"><span class="en">Peace</span><strong>Keamanan</strong><small>Matlamat 16</small></button>
+        <button class="pillar" type="button" data-p="partnership" aria-pressed="false"><span class="en">Partnership</span><strong>Kerjasama</strong><small>Matlamat 17</small></button>
+      </div>
+      <p class="filter-note" id="filter-note" aria-live="polite">Memaparkan semua 17 matlamat.</p>
+    </section>
+
+    <section class="section container" id="matlamat" style="padding-top:40px">
+      <p class="eyebrow">Matlamat Pembangunan Mampan PBB</p>
+      <h2>17 Matlamat SDG</h2>
+      <p class="lead">Nama ringkas dalam Bahasa Melayu mengikut laman PBB; huraian ialah terjemahan ringkas pernyataan rasmi matlamat.</p>
+      <div class="goals" id="goals"></div>
+    </section>
+
+    <section class="section container" id="eesg">
+      <p class="eyebrow">Daripada SDG kepada operasi perniagaan</p>
+      <h2>Bagaimana SDG berkait dengan EESG dan 3P?</h2>
+      <p class="lead">
+        3P (People, Planet, Prosperity) yang digunakan dalam latihan ini ialah tiga daripada
+        lima bidang tumpuan SDG. Peace dan Partnership pula sangat dekat dengan tadbir urus (G)
+        dalam EESG.
+      </p>
+      <div class="link-grid">
+        <article class="card"><h3>E · Environment → Planet</h3><p>Tenaga, air, sisa dan iklim dalam operasi berkait dengan SDG 6, 7, 12, 13, 14 dan 15.</p></article>
+        <article class="card"><h3>E · Economy &amp; S · Social → Prosperity &amp; People</h3><p>Pekerjaan wajar, kemahiran, kesihatan pekerja dan rantaian bekalan inklusif berkait dengan SDG 1–5, 8 dan 10.</p></article>
+        <article class="card"><h3>G · Governance → Peace &amp; Partnership</h3><p>Integriti, ketelusan, pematuhan dan kerjasama pihak berkepentingan berkait dengan SDG 16 dan 17.</p></article>
+      </div>
+      <div class="note"><strong>Tip aktiviti:</strong> apabila mencadangkan tindakan, namakan nombor matlamat SDG (contoh: SDG 12) dan, jika boleh, sasaran khususnya (contoh: SDG 12.5 – mengurangkan penjanaan sisa).</div>
+    </section>
+
+    <section class="container sources" aria-label="Sumber">
+      <strong>Sumber</strong>
+      <ul>
+        <li>Matlamat dan sasaran: <a href="https://sdgs.un.org/goals" target="_blank" rel="noopener">United Nations – The 17 Goals (sdgs.un.org)</a></li>
+        <li>Nama matlamat dalam Bahasa Melayu: <a href="https://myanmar.un.org/ms/sdgs/17" target="_blank" rel="noopener">Laman PBB (Bahasa Melayu)</a></li>
+        <li>Bidang tumpuan: <a href="https://ekonomi.gov.my/sites/default/files/2022-12/Indikator_SDG_Malaysia_2021_Executive_Summary.pdf" target="_blank" rel="noopener">Indikator SDG Malaysia – Kementerian Ekonomi / DOSM</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      Laman latihan: Kelestarian dalam Konteks Operasi Perniagaan ·
+      EBIC'26 · CEDI UUM · Dr. Khairol Anuar Ishak
+    </div>
+  </footer>
+
+  <script>
+    const goals = [
+      [1, "Tiada Kemiskinan", "Menamatkan kemiskinan dalam semua bentuk di mana-mana jua.", "#E5243B", "people"],
+      [2, "Kelaparan Sifar", "Menamatkan kelaparan, mencapai jaminan makanan dan pemakanan yang lebih baik serta menggalakkan pertanian mampan.", "#DDA63A", "people", "#1c2b25"],
+      [3, "Kesihatan yang Baik dan Kesejahteraan", "Memastikan kehidupan yang sihat dan menggalakkan kesejahteraan untuk semua pada semua peringkat umur.", "#4C9F38", "people"],
+      [4, "Pendidikan Berkualiti", "Memastikan pendidikan berkualiti yang inklusif dan saksama serta menggalakkan peluang pembelajaran sepanjang hayat untuk semua.", "#C5192D", "people"],
+      [5, "Kesaksamaan Gender", "Mencapai kesaksamaan gender dan memperkasakan semua wanita dan kanak-kanak perempuan.", "#FF3A21", "people"],
+      [6, "Air Bersih dan Sanitasi", "Memastikan ketersediaan dan pengurusan mampan air serta sanitasi untuk semua.", "#26BDE2", "planet", "#1c2b25"],
+      [7, "Tenaga Mampu Milik dan Bersih", "Memastikan akses kepada tenaga yang mampu milik, boleh dipercayai, mampan dan moden untuk semua.", "#FCC30B", "prosperity", "#1c2b25"],
+      [8, "Pekerjaan yang Sesuai dan Pertumbuhan Ekonomi", "Menggalakkan pertumbuhan ekonomi yang berterusan, inklusif dan mampan, guna tenaga penuh dan produktif serta pekerjaan yang sesuai untuk semua.", "#A21942", "prosperity"],
+      [9, "Industri, Inovasi dan Infrastruktur", "Membina infrastruktur yang berdaya tahan, menggalakkan perindustrian yang inklusif dan mampan serta memupuk inovasi.", "#FD6925", "prosperity", "#1c2b25"],
+      [10, "Mengurangkan Ketidaksamaan", "Mengurangkan ketidaksamaan di dalam dan di antara negara.", "#DD1367", "prosperity"],
+      [11, "Bandar dan Komuniti yang Mampan", "Menjadikan bandar dan penempatan manusia inklusif, selamat, berdaya tahan dan mampan.", "#FD9D24", "prosperity", "#1c2b25"],
+      [12, "Penggunaan dan Pengeluaran yang Bertanggungjawab", "Memastikan corak penggunaan dan pengeluaran yang mampan.", "#BF8B2E", "planet", "#1c2b25"],
+      [13, "Tindakan Iklim", "Mengambil tindakan segera untuk menangani perubahan iklim dan kesannya.", "#3F7E44", "planet"],
+      [14, "Kehidupan di Bawah Air", "Memulihara dan menggunakan lautan, laut dan sumber marin secara mampan untuk pembangunan mampan.", "#0A97D9", "planet"],
+      [15, "Kehidupan di Darat", "Melindungi dan memulihkan ekosistem darat, mengurus hutan secara mampan, memerangi penggurunan, menghentikan degradasi tanah dan kehilangan biodiversiti.", "#56C02B", "planet", "#1c2b25"],
+      [16, "Keamanan, Keadilan dan Institusi yang Teguh", "Menggalakkan masyarakat yang aman dan inklusif, menyediakan akses keadilan untuk semua serta membina institusi yang berkesan, akauntabel dan inklusif di semua peringkat.", "#00689D", "peace"],
+      [17, "Kerjasama demi Matlamat", "Memperkukuhkan kaedah pelaksanaan dan menggiatkan semula Perkongsian Global untuk Pembangunan Mampan.", "#19486A", "partnership"]
+    ];
+    const games = { 1: "../sdg.html" };
+
+    const wrap = document.getElementById("goals");
+    wrap.innerHTML = goals.map(([n, name, text, c, p, fg]) => `
+      <article class="goal" data-p="${p}" id="sdg-${n}" style="--c:${c};${fg ? `--fg:${fg}` : ""}">
+        <div class="goal-head"><span class="goal-num">${n}</span><span class="goal-name">${name}</span></div>
+        <div class="goal-body">
+          <p>${text}</p>
+          ${games[n] ? `<a class="goal-link" href="${games[n]}">Main permainan SDG ${n} →</a>` : ""}
+        </div>
+      </article>`).join("");
+
+    const pillars = [...document.querySelectorAll(".pillar")];
+    const note = document.getElementById("filter-note");
+    function apply(p) {
+      pillars.forEach(b => b.setAttribute("aria-pressed", String(b.dataset.p === p)));
+      let count = 0;
+      document.querySelectorAll(".goal").forEach(g => {
+        const on = !p || g.dataset.p === p;
+        g.classList.toggle("dim", !on);
+        if (on) count++;
+      });
+      if (!p) { note.textContent = "Memaparkan semua 17 matlamat."; return; }
+      const label = pillars.find(b => b.dataset.p === p).querySelector("strong").textContent;
+      note.innerHTML = `Menyerlahkan ${count} matlamat bagi <strong>${label}</strong>. <button type="button" id="clear">Papar semua</button>`;
+      document.getElementById("clear").addEventListener("click", () => apply(null));
+    }
+    pillars.forEach(b => b.addEventListener("click", () => apply(b.getAttribute("aria-pressed") === "true" ? null : b.dataset.p)));
+  </script>
+</body>
+</html>
