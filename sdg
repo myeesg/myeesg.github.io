@@ -1,1 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="An interactive Malaysia-focused SDG 1 No Poverty learning game connecting EESG and the 3Ps.">
+<title>SDG 1: No Poverty | MyEESG Learning Game</title>
+<style>
+:root{--red:#e5243b;--ink:#18232a;--muted:#5b6870;--cream:#fffaf2;--white:#fff;--line:#e7e3db;--green:#236b50;--gold:#f1b83b;--shadow:0 14px 40px #24352a12}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--green)}.wrap{max-width:1120px;margin:auto;padding:0 24px}
+nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0}.brand{font-weight:900;letter-spacing:.06em;color:var(--green)}.brand span{color:var(--red)}nav a{font-size:.92rem;text-decoration:none;font-weight:700;margin-left:18px}
+.hero{background:linear-gradient(120deg,#fce5d9 0%,#fff4d4 55%,#e6f2e8 100%);border-radius:28px;padding:clamp(28px,6vw,70px);position:relative;overflow:hidden;margin:12px 0 30px}
+.hero:after{content:"1";position:absolute;right:4%;top:-70px;font-size:clamp(240px,40vw,440px);font-weight:1000;line-height:1;color:#e5243b13;pointer-events:none}
+.kicker{font-size:.78rem;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:var(--red)}h1{font-size:clamp(2.5rem,6vw,5rem);line-height:.98;letter-spacing:-.055em;margin:12px 0 20px;max-width:700px}h1 em{font-style:normal;color:var(--red)}.hero p{font-size:1.15rem;max-width:680px;color:#38464d}.btn{display:inline-flex;align-items:center;justify-content:center;background:var(--green);color:white;text-decoration:none;border:0;border-radius:999px;padding:13px 22px;font-weight:800;font-size:1rem;cursor:pointer;transition:transform .15s,background .15s}.btn:hover{transform:translateY(-2px);background:#174d39}.btn.secondary{background:#fff;color:var(--green);border:1px solid #b8d0c3}
+section{padding:34px 0}.eyebrow{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;font-weight:900;color:var(--green)}h2{font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;letter-spacing:-.035em;margin:8px 0 12px}.lead{max-width:760px;color:var(--muted);font-size:1.05rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}.card{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:23px;box-shadow:var(--shadow)}.card .icon{font-size:1.65rem}.card h3{margin:10px 0 6px;font-size:1.12rem}.card p{margin:0;color:var(--muted);font-size:.95rem}.note{border-left:4px solid var(--gold);background:#fff6d9;padding:14px 18px;border-radius:0 12px 12px 0;color:#51452a;margin:20px 0}.tagrow{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}.tag{background:#e7f1ea;color:#245b43;border-radius:999px;padding:6px 11px;font-size:.8rem;font-weight:800}
+.game{background:#173d31;color:white;border-radius:26px;padding:clamp(24px,5vw,52px);margin:20px 0}.game .eyebrow{color:#9edbb8}.game h2{color:white}.game .lead{color:#d1e0d8}.scenario{background:#ffffff12;border:1px solid #ffffff2b;border-radius:16px;padding:18px;margin:22px 0;color:#f2f7f3}.budgetline{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:18px 0}.budget{font-weight:900;color:#ffda77}.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.choice{background:#fff;color:var(--ink);padding:17px;border-radius:16px;border:2px solid transparent;display:flex;gap:12px;cursor:pointer;transition:border .15s,transform .15s}.choice:hover{transform:translateY(-2px)}.choice:has(input:checked){border-color:var(--gold);box-shadow:0 0 0 3px #f1b83b35}.choice input{width:19px;height:19px;accent-color:var(--green);margin-top:3px;flex:0 0 auto}.choice h3{font-size:1rem;margin:0 0 4px}.choice p{font-size:.88rem;color:var(--muted);margin:0 0 8px}.cost{font-weight:900;color:var(--green);font-size:.9rem}.gamecontrols{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 8px}.game .btn{background:var(--gold);color:#272413}.game .btn.secondary{background:transparent;color:white;border-color:#ffffff80}.result{display:none;margin-top:20px;background:#fff;color:var(--ink);border-radius:18px;padding:22px}.result.show{display:block}.scoregrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}.score{background:#f1f5f1;border-radius:12px;padding:12px}.score b{display:block;font-size:1.4rem;color:var(--green)}.score small{color:var(--muted);font-weight:700}.result ul{padding-left:21px}.reflect{background:#edf4ee;border-radius:22px;padding:26px;margin:18px 0}.reflect ol{margin-bottom:0}.footer{border-top:1px solid var(--line);padding:25px 0 40px;color:var(--muted);font-size:.85rem}.sources{font-size:.85rem;color:var(--muted)}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.choices{grid-template-columns:1fr}.scoregrid{grid-template-columns:repeat(2,1fr)}nav .links{display:none}.hero{border-radius:20px}.game{border-radius:20px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav aria-label="Main navigation"><div class="brand">MY<span>EESG</span> · LEARNING LAB</div><div class="links"><a href="#learn">Learn</a><a href="#challenge">Play the challenge</a><a href="#reflect">Discuss</a></div></nav>
+<header class="hero">
+<div class="kicker">Sustainable Development Goal 1</div>
+<h1>End poverty.<br><em>Build resilience.</em></h1>
+<p>Poverty is more than low income. It can mean insecure work, limited access to education and health services, exclusion, and greater exposure to shocks. Explore how a community can respond through EESG and the 3Ps.</p>
+<a class="btn" href="#challenge">Start the community challenge <span aria-hidden="true">↘</span></a>
+</header>
+<main>
+<section id="learn">
+<div class="eyebrow">Understand the goal</div><h2>What does “No Poverty” mean?</h2>
+<p class="lead">SDG 1 calls for ending poverty in all its forms everywhere. Its targets include reducing poverty, strengthening social protection, improving access to resources and basic services, and building resilience to climate, economic and other shocks.</p>
+<div class="grid">
+<article class="card"><div class="icon" aria-hidden="true">🛡️</div><h3>Protect people</h3><p>Social protection, fair access to services, and support during unemployment, illness, disability or disaster can reduce vulnerability.</p></article>
+<article class="card"><div class="icon" aria-hidden="true">🌱</div><h3>Expand opportunity</h3><p>Skills, decent work, finance and inclusive enterprise can help people build secure livelihoods and participate in economic life.</p></article>
+<article class="card"><div class="icon" aria-hidden="true">🌦️</div><h3>Strengthen resilience</h3><p>Preparedness, safe infrastructure and climate-aware livelihoods can help households withstand shocks and recover.</p></article>
+</div>
+<div class="note"><strong>Measurement note:</strong> The World Bank’s international extreme-poverty line was updated in June 2025 to US$3.00 per person per day in 2021 purchasing-power-parity terms. This is a global comparison measure; it is not Malaysia’s national poverty line.</div>
+<div class="tagrow" aria-label="Connections"><span class="tag">E · Environment</span><span class="tag">E · Economy</span><span class="tag">S · Social</span><span class="tag">G · Governance</span><span class="tag">People</span><span class="tag">Planet</span><span class="tag">Prosperity</span></div>
+</section>
+<section class="game" id="challenge">
+<div class="eyebrow">Interactive classroom activity · 10–15 minutes</div>
+<h2>Plan a more resilient community</h2>
+<p class="lead">A flood has disrupted income in a low-income Malaysian district. Several households include children, older people and informal workers. Your team has <strong>RM100,000</strong> to invest in a one-year response. Choose initiatives, then review the EESG and 3P balance of your plan.</p>
+<div class="scenario"><strong>Your task:</strong> reduce immediate hardship while helping residents recover and face future shocks. Choose one or more initiatives without exceeding the budget. A strong plan considers who benefits, environmental effects, economic durability and transparent delivery.</div>
+<div class="budgetline"><span>Available budget: <span class="budget">RM100,000</span></span><span id="spent" aria-live="polite">Selected: RM0</span></div>
+<div class="choices" id="choices">
+<label class="choice"><input type="checkbox" data-cost="25000" data-people="4" data-planet="1" data-prosperity="2" data-governance="2"><span><h3>Emergency household support</h3><p>Temporary food, essential items and cash support, prioritised by assessed need.</p><span class="cost">RM25,000 · Social protection</span></span></label>
+<label class="choice"><input type="checkbox" data-cost="30000" data-people="3" data-planet="1" data-prosperity="4" data-governance="2"><span><h3>Skills and decent-work pathway</h3><p>Short, locally relevant training linked to employers, job placement and follow-up.</p><span class="cost">RM30,000 · Livelihoods</span></span></label>
+<label class="choice"><input type="checkbox" data-cost="35000" data-people="3" data-planet="2" data-prosperity="4" data-governance="2"><span><h3>Microenterprise recovery grants</h3><p>Small grants and mentoring for affected microbusinesses, with clear eligibility and reporting.</p><span class="cost">RM35,000 · Inclusive enterprise</span></span></label>
+<label class="choice"><input type="checkbox" data-cost="40000" data-people="2" data-planet="4" data-prosperity="3" data-governance="2"><span><h3>Flood-resilient community upgrades</h3><p>Improve drainage, safe access and community preparedness around vulnerable homes.</p><span class="cost">RM40,000 · Resilience</span></span></label>
+<label class="choice"><input type="checkbox" data-cost="20000" data-people="4" data-planet="1" data-prosperity="2" data-governance="3"><span><h3>Childcare and service access</h3><p>Temporary childcare and mobile referral support so caregivers can access work and services.</p><span class="cost">RM20,000 · Inclusion</span></span></label>
+<label class="choice"><input type="checkbox" data-cost="15000" data-people="2" data-planet="3" data-prosperity="2" data-governance="4"><span><h3>Community monitoring and feedback</h3><p>Publish selection criteria, gather resident feedback and track whether support reaches intended groups.</p><span class="cost">RM15,000 · Accountability</span></span></label>
+</div>
+<div class="gamecontrols"><button class="btn" id="scoreBtn" type="button">Review my plan</button><button class="btn secondary" id="resetBtn" type="button">Reset choices</button></div>
+<div class="result" id="result" role="status" aria-live="polite"></div>
+<p class="sources">Simulation values are illustrative learning scores, not forecasts, official programme costs or poverty statistics.</p>
+</section>
+<section id="reflect">
+<div class="eyebrow">From game to action</div><h2>Discuss your choices</h2>
+<div class="reflect"><ol>
+<li>Which groups might still be left out of your plan? How would you include their voices?</li>
+<li>How does your plan connect <strong>People, Planet and Prosperity</strong> with EESG?</li>
+<li>What evidence would you collect after one year to assess whether poverty and vulnerability have reduced?</li>
+<li>How can the programme continue fairly and transparently after the initial budget ends?</li>
+</ol></div>
+<p class="lead"><strong>Suggested classroom output:</strong> present a one-page action plan with your budget, intended beneficiaries, EESG and 3P links, two indicators, and one risk-mitigation measure.</p>
+</section>
+<section class="sources">
+<div class="eyebrow">Learn more</div>
+<p>Goal and targets: <a href="https://sdgs.un.org/goals/goal1" target="_blank" rel="noopener">United Nations SDG 1</a> · Poverty-line update: <a href="https://www.worldbank.org/en/news/factsheet/2025/06/05/june-2025-update-to-global-poverty-lines" target="_blank" rel="noopener">World Bank, June 2025</a> · Activity inspiration: <a href="https://sdgsgames.com/what-are-the-sdgs/no-poverty/" target="_blank" rel="noopener">SDGs Games: No Poverty</a>.</p>
+</section>
+</main>
+<footer class="footer">MyEESG Learning Lab · SDG 1: No Poverty · Educational simulation for discussion and learning.</footer>
+</div>
+<script>
+(()=>{
+ const boxes=[...document.querySelectorAll('#choices input')], spent=document.getElementById('spent'), result=document.getElementById('result');
+ const money=n=>'RM'+n.toLocaleString('en-MY');
+ function total(){return boxes.filter(b=>b.checked).reduce((s,b)=>s+Number(b.dataset.cost),0)}
+ function update(){const n=total();spent.textContent='Selected: '+money(n)+(n>100000?' · Over budget!':'');spent.style.color=n>100000?'#ffaaa7':'#ffda77'}
+ boxes.forEach(b=>b.addEventListener('change',update));
+ document.getElementById('resetBtn').addEventListener('click',()=>{boxes.forEach(b=>b.checked=false);result.classList.remove('show');result.innerHTML='';update()});
+ document.getElementById('scoreBtn').addEventListener('click',()=>{
+  const chosen=boxes.filter(b=>b.checked), cost=total();
+  result.classList.add('show');
+  if(!chosen.length){result.innerHTML='<h3>Choose at least one initiative</h3><p>Select a mix that fits the budget, then review your plan.</p>';return}
+  if(cost>100000){result.innerHTML='<h3>Your plan is over budget</h3><p>Reduce or change your selections until the total is RM100,000 or less.</p>';result.scrollIntoView({behavior:'smooth',block:'nearest'});return}
+  const dims=['people','planet','prosperity','governance'], labels={people:'People',planet:'Planet',prosperity:'Prosperity',governance:'Governance'};
+  const totals=Object.fromEntries(dims.map(d=>[d,chosen.reduce((s,b)=>s+Number(b.dataset[d]),0)]));
+  const max=chosen.length*4;
+  const scores=Object.fromEntries(dims.map(d=>[d,Math.round(100*totals[d]/max)]));
+  const weakest=dims[Object.values(scores).indexOf(Math.min(...Object.values(scores)))];
+  const strongest=dims[Object.values(scores).indexOf(Math.max(...Object.values(scores)))];
+  const feedback=Math.min(...Object.values(scores))>=55?'Your choices show a fairly balanced EESG and 3P approach. Explain how the initiatives will work together.':'Your strongest area is '+labels[strongest]+'. Consider how to strengthen '+labels[weakest]+' in your plan.';
+  result.innerHTML='<h3>Plan reviewed</h3><p>You allocated <strong>'+money(cost)+'</strong> across '+chosen.length+' initiative'+(chosen.length===1?'':'s')+'. These learning scores help compare priorities; they do not predict real-world impact.</p><div class="scoregrid">'+dims.map(d=>'<div class="score"><b>'+scores[d]+' / 100</b><small>'+labels[d]+'</small></div>').join('')+'</div><p><strong>Discussion prompt:</strong> '+feedback+'</p><p><strong>Selected initiatives:</strong></p><ul>'+chosen.map(b=>'<li>'+b.parentElement.querySelector('h3').textContent+' — '+money(Number(b.dataset.cost))+'</li>').join('')+'</ul><p><strong>Next step:</strong> name one measurable indicator for each of People, Planet, Prosperity and Governance.</p>';
+  result.scrollIntoView({behavior:'smooth',block:'nearest'});
+ });
+ update();
+})();
+</script>
+</body>
+</html>
 
